@@ -1,0 +1,43 @@
+[Report: Custom Sales Register]
+    Form    : Custom Sales Register
+    Title   : "Sales Register with HSN Code and GST Rate"
+
+[Form: Custom Sales Register]
+    Part    : Custom Sales Register
+    Width   : 100% Screen
+    Height  : 100% Screen
+
+[Part: Custom Sales Register]
+    Line    : Custom Sales Register Title, Custom Sales Register Details
+    Repeat  : Custom Sales Register Details : Voucher
+    Scroll  : Vertical
+
+[Line: Custom Sales Register Title]
+    Field   : Medium Prompt, Medium Prompt, Medium Prompt, Medium Prompt, Medium Prompt
+    Local   : Field : Medium Prompt : Set as : "Date"
+    Local   : Field : Medium Prompt : Set as : "Voucher No"
+    Local   : Field : Medium Prompt : Set as : "Party Name"
+    Local   : Field : Medium Prompt : Set as : "HSN Code"
+    Local   : Field : Medium Prompt : Set as : "GST Rate"
+
+[Line: Custom Sales Register Details]
+    Field   : Medium Prompt, Medium Prompt, Medium Prompt, Medium Prompt, Medium Prompt
+    Local   : Field : Medium Prompt : Set as : $Date
+    Local   : Field : Medium Prompt : Set as : $VoucherNumber
+    Local   : Field : Medium Prompt : Set as : $PartyLedgerName
+    Local   : Field : Medium Prompt : Set as : $HSNCode
+    Local   : Field : Medium Prompt : Set as : $GSTRate
+
+[Field: Medium Prompt]
+    Use     : Name Field
+    Width   : 20
+
+[System: Formula]
+    HSNCode : $$FilterValue:$HSNCode:StockItem:$StockItemName
+    GSTRate : $$FilterValue:$GSTRate:StockItem:$StockItemName
+
+[Collection: Voucher]
+    Type    : Voucher
+    Child Of: ##SVCurrentCompany
+    Belongs To: Yes
+    Fetch   : Date, VoucherNumber, PartyLedgerName, StockItemName, HSNCode, GSTRate
